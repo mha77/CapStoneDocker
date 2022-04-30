@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  frontend:
+    image: "haegmar/capstone-angular:latest"
+    ports:
+      - 80:80
+  api_service:
+    image: "haegmar/capstonebackend:latest"
+    ports:
+      - 9092:9092
+    depends_on:
+      - maria_db
+    links:
+      - maria_db:app_db
+  maria_db:
+    image: "mariadb:10.5.8"
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: capstone
+      MYSQL_USER: simplilearn
+      MYSQL_PASSWORD: simplilearn
+      MYSQL_ROOT_PASSWORD: simplilearn
